@@ -55,14 +55,19 @@
                 </div>
                 <!-- About Section Buttons-->
                 <div class="mt-4">
-                    <a class="btn btn-xl btn-outline-light me-2" href="#upload">
-                        <i class="fas fa-upload me-2"></i>
-                        Upload Syllabus
-                    </a>
-                    <a class="btn btn-xl btn-outline-light ms-2" href="#quiz">
-                        <i class="fas fa-paper-plane me-2"></i>
-                        Submit Quiz
-                    </a>
+                    <form action="/question" method="post" class="d-inline" enctype="multipart/form-data">
+                        <!-- File input for uploading syllabus -->
+                        <a class="btn btn-xl btn-outline-light me-2" href="#upload">
+                            <input type="file" name="pdf_file" accept=".pdf" required>
+                            Upload Syllabus
+                        </a>
+                        <!-- Submit button -->
+                        <button type="submit" class="btn btn-xl btn-outline-light ms-2">
+                            <i class="fas fa-paper-plane me-2"></i>
+                            To Quiz
+                        </button>
+                    </form>
+                    
                 </div>
             </div>
         </section>        
