@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 import os
+from Control import getTxt
 
 # Configure Flask to use the 'view' folder for both templates and static files,
 # and set static_url_path to an empty string so that asset paths like /css/styles.css work.
@@ -31,6 +32,7 @@ def upload_file():
         # Build the full file path and save the file
         file_path = os.path.join(upload_dir, file.filename)
         file.save(file_path)
+        txt=getTxt.process_file(file_path)
         
         # Optionally, process the file if needed before rendering the next page.
         # For now, we directly render the question page.
