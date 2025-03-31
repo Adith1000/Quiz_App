@@ -1,9 +1,10 @@
 import os
 from supabase import create_client, Client
+import api_keys
 
 # Hardcoding for development; consider using environment variables properly
-url: str = "https://zcfuychanpnrfkhiqhes.supabase.co"  # Replace with os.environ.get("SUPABASE_URL") if needed
-key: str = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpjZnV5Y2hhbnBucmZraGlxaGVzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDMzOTc1MTEsImV4cCI6MjA1ODk3MzUxMX0.47aIljB6bc-Z1bBD_Eud2A6VlRZrz_Q34BEIxldEk3U"  # Replace with os.environ.get("SUPABASE_KEY") if needed
+url: str = api_keys.db_url_key  # Replace with os.environ.get("SUPABASE_URL") if needed
+key: str = api_keys.db_api_key  # Replace with os.environ.get("SUPABASE_KEY") if needed
 supabase: Client = create_client(url, key)
 
 curr_id = 0
