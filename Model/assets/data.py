@@ -6,7 +6,7 @@ import api_keys
 url: str = api_keys.db_url_key  # Replace with os.environ.get("SUPABASE_URL") if needed
 key: str = api_keys.db_api_key  # Replace with os.environ.get("SUPABASE_KEY") if needed
 supabase: Client = create_client(url, key)
-
+ 
 curr_id = 0
 
 def insert_question(question, score, ans):
