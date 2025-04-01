@@ -15,6 +15,50 @@
         <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
+
+        <script>
+            // Variable to store the selected option value ("true" for Yes, "false" for No)
+            let selectedOption = null;
+        
+            // Function to handle option selection and add visual feedback
+            function selectOption(option) {
+                selectedOption = option;
+                // Remove selection styling from both options
+                document.getElementById("optionTrue").classList.remove("selected");
+                document.getElementById("optionFalse").classList.remove("selected");
+                // Apply selection styling to the chosen option
+                if (option === "True") {
+                    document.getElementById("optionTrue").classList.add("selected");
+                } else if (option === "False") {
+                    document.getElementById("optionFalse").classList.add("selected");
+                }
+            }
+        
+            // Function to submit the answer as a JSON POST request
+            function submitAnswer() {
+                if (!selectedOption) {
+                    alert("Please select an option before submitting.");
+                    return;
+                }
+                fetch('/next_question', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ selected_option: selectedOption })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Assuming you have elements with IDs 'question-text' and 'question-number' on your page
+                    document.getElementById('question-text').innerText = data.question;
+                    // Reset the selected option for the next question
+                    selectedOption = null;
+                    document.getElementById("optionTrue").classList.remove("selected");
+                    document.getElementById("optionFalse").classList.remove("selected");
+                })
+                .catch(error => console.error('Error:', error));
+            }
+        </script>
     </head>
     <body id="page-top">
         <!-- Navigation-->
@@ -38,8 +82,8 @@
         <section class="page-section portfolio min-vh-100 align-items-center" id="portfolio">
             <div class="container">
                 <!-- Question Section Heading-->
-                <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">
-                    What is your preferred subject?
+                <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" id="question-text">
+                    Ready for the quiz?
                 </h2>
                 <!-- Icon Divider-->
                 <div class="divider-custom">
@@ -49,53 +93,34 @@
                 </div>
                 <!-- Options Grid Items-->
                 <div class="row justify-content-center">
-                    <!-- Option 1-->
+                    <!-- True Option -->
                     <div class="col-12 col-md-6 col-lg-3 mb-5">
-                        <div class="portfolio-item mx-auto" data-bs-toggle="modal" data-bs-target="#optionModal1">
+                        <div class="portfolio-item mx-auto" id="optionTrue" onclick="selectOption('True')">
                             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
                                 <div class="portfolio-item-caption-content text-center text-white">
-                                    <i class="fas fa-plus fa-3x"></i>
+                                    <i class="fas fa-check fa-3x"></i>
                                 </div>
                             </div>
-                            <!-- Placeholder option text instead of an image -->
-                            <div class="option-placeholder text-center text-secondary">Option 1</div>
+                            <div class="option-placeholder text-center text-secondary">True</div>
                         </div>
                     </div>
-                    <!-- Option 2-->
+                    <!-- False Option -->
                     <div class="col-12 col-md-6 col-lg-3 mb-5">
-                        <div class="portfolio-item mx-auto" data-bs-toggle="modal" data-bs-target="#optionModal2">
+                        <div class="portfolio-item mx-auto" id="optionFalse" onclick="selectOption('False')">
                             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
                                 <div class="portfolio-item-caption-content text-center text-white">
-                                    <i class="fas fa-plus fa-3x"></i>
+                                    <i class="fas fa-times fa-3x"></i>
                                 </div>
                             </div>
-                            <div class="option-placeholder text-center text-secondary">Option 2</div>
+                            <div class="option-placeholder text-center text-secondary">False</div>
                         </div>
                     </div>
-                    <!-- Option 3-->
-                    <div class="col-12 col-md-6 col-lg-3 mb-5">
-                        <div class="portfolio-item mx-auto" data-bs-toggle="modal" data-bs-target="#optionModal3">
-                            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                                <div class="portfolio-item-caption-content text-center text-white">
-                                    <i class="fas fa-plus fa-3x"></i>
-                                </div>
-                            </div>
-                            <div class="option-placeholder text-center text-secondary">Option 3</div>
-                        </div>
-                    </div>
-                    <!-- Option 4-->
-                    <div class="col-12 col-md-6 col-lg-3 mb-5">
-                        <div class="portfolio-item mx-auto" data-bs-toggle="modal" data-bs-target="#optionModal4">
-                            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                                <div class="portfolio-item-caption-content text-center text-white">
-                                    <i class="fas fa-plus fa-3x"></i>
-                                </div>
-                            </div>
-                            <div class="option-placeholder text-center text-secondary">Option 4</div>
-                        </div>
+
+                    <!-- Submit Button -->
+                    <div class="text-center">
+                        <button onclick="submitAnswer()" class="btn btn-primary">Submit</button>
                     </div>
                 </div>
-            </div>
         </section>        
                         
         <!-- Footer-->
