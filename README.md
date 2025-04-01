@@ -8,10 +8,6 @@ A web-based quiz application built with Flask for the backend and HTML, CSS, and
 - [Technology Stack](#technology-stack)
 - [Architecture](#architecture)
 - [Installation](#installation)
-- [Usage](#usage)
-- [License](#license)
-- [Contributing](#contributing)
-- [Contact](#contact)
 
 ## Overview
 
